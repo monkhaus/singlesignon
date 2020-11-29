@@ -20,5 +20,6 @@ import google
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('google/', include('google.urls')),
-    path('', google.views.index)
+    path('', google.views.index),
+    path('accounts/', include('allauth.urls')),
 ]

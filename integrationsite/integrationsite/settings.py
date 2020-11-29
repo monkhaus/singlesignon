@@ -25,8 +25,7 @@ SECRET_KEY = 'bmfhhdykvs$xo13^hgn*gcy!1a@)0!epr67=i^64og3iptay9x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['local.test.com']
-
+ALLOWED_HOSTS = ['local.test.com', '127.0.0.1']
 
 # Application definition
 
@@ -37,7 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'google',
+    'allauth',   
+    'allauth.account',   
+    'allauth.socialaccount',  
+    'allauth.socialaccount.providers.google',   
 ]
 
 MIDDLEWARE = [
@@ -121,5 +125,28 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'google.User'
+AUTH_USER_MODEL = 'google_app.User'
 
+
+
+AUTHENTICATION_BACKENDS = (
+ 'django.contrib.auth.backends.ModelBackend',
+ 'allauth.account.auth_backends.AuthenticationBackend',
+ )
+
+SITE_ID = 2 
+
+LOGIN_REDIRECT_URL = '/'
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
